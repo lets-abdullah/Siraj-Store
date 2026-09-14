@@ -137,7 +137,7 @@ export default function Header({
   return (
     <header className="w-full relative z-40">
       {/* 1. TOP MARQUEE ANNOUNCEMENT BAR */}
-      <div className="w-full bg-luxury-dark text-luxury-beige text-xs font-sans tracking-[0.15em] py-2 overflow-hidden flex items-center border-b border-[#322C28]">
+      <div className="w-full bg-luxury-dark text-luxury-beige text-xs font-sans tracking-[0.15em] py-1.5 overflow-hidden flex items-center border-b border-[#322C28]">
         <div className="flex-1 overflow-hidden relative h-4">
           <div className="animate-marquee inline-block whitespace-nowrap absolute">
             <span>✨ SIRAJ LUXURY COUTURE • COMPLIMENTARY SHIPPING ON ORDERS ABOVE PKR 5,000 • 30-DAY DOORSTEP EXCHANGE • FEMALES & KIDS BOUTIQUE EXCELLENCE ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -161,7 +161,7 @@ export default function Header({
 
       {/* 2. SINGLE HORIZONTAL HEADER ROW: [LOGO + TAGLINE] [NAV] [UTILITIES] */}
       <div className="w-full bg-luxury-cream/95 backdrop-blur-md border-b border-[#EBE3D7]/80 sticky top-0 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 md:h-15 flex items-center justify-between gap-4">
           
           {/* LEFT SIDE: Brand Logo + Subtle Integrated Tagline */}
           <div className="flex items-center gap-4 shrink-0">
@@ -172,21 +172,21 @@ export default function Header({
               <img
                 src="/logo-transparent.png"
                 alt="Siraj Luxury Couture"
-                className="h-11 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
               {/* Subtle integrated tagline on the same header line */}
-              <div className="hidden xl:flex flex-col border-l border-[#E2D8CC] pl-3 py-0.5 justify-center">
-                <span className="text-[9.5px] font-sans tracking-[0.25em] text-luxury-gold font-bold uppercase whitespace-nowrap leading-tight">
+              <div className="hidden xl:flex flex-col border-l border-[#E2D8CC] pl-2.5 py-0.5 justify-center">
+                <span className="text-[9px] font-sans tracking-[0.22em] text-luxury-gold font-bold uppercase whitespace-nowrap leading-tight">
                   LUXURY FASHION
                 </span>
-                <span className="text-[8px] font-sans tracking-[0.2em] text-[#6B5E55] font-medium uppercase whitespace-nowrap mt-0.5">
+                <span className="text-[7.5px] font-sans tracking-[0.18em] text-[#6B5E55] font-medium uppercase whitespace-nowrap mt-0.5">
                   FEMALES & KIDS
                 </span>
               </div>
             </div>
 
             {/* Sub-tagline for wide monitors */}
-            <span className="hidden 2xl:inline-block text-[9px] font-sans tracking-[0.22em] text-luxury-gold font-medium uppercase border-l border-[#E2D8CC] pl-3">
+            <span className="hidden 2xl:inline-block text-[8.5px] font-sans tracking-[0.2em] text-luxury-gold font-medium uppercase border-l border-[#E2D8CC] pl-3">
               LUXURY FASHION • FEMALES & KIDS
             </span>
           </div>
