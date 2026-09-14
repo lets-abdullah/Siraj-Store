@@ -131,76 +131,81 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
   };
 
   return (
-    <section className="relative w-full min-h-[620px] md:h-[88vh] md:min-h-[660px] overflow-hidden bg-linear-to-br from-luxury-cream via-[#FAF6F0] to-[#F3EEE5] border-b border-[#F0EAE1]">
+    <section className="relative w-full min-h-[580px] sm:min-h-[620px] md:h-[86vh] md:min-h-[640px] md:max-h-[800px] overflow-hidden bg-linear-to-br from-luxury-cream via-[#FAF6F0] to-[#F3EEE5] border-b border-[#F0EAE1]">
       {/* Background Slides */}
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 w-full h-full flex flex-col md:flex-row items-center justify-between transition-opacity duration-1000 ease-in-out ${
+          className={`absolute inset-0 w-full h-full flex items-center justify-center transition-opacity duration-1000 ease-in-out ${
             index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
           }`}
         >
-          {/* Text Content Block */}
-          <div className="w-full md:w-1/2 h-full flex flex-col justify-center px-6 sm:px-10 md:px-14 lg:px-20 py-8 md:py-0 text-left order-2 md:order-1 select-none">
+          {/* Centered bounded container: fixes excessive whitespace on wide screens */}
+          <div className="max-w-6xl xl:max-w-7xl mx-auto w-full h-full px-5 sm:px-8 md:px-12 flex flex-col md:flex-row items-center justify-center md:justify-between py-5 md:py-0 gap-4 sm:gap-6 md:gap-8 lg:gap-12">
             
-            {/* Top Tag */}
-            <div className="mb-2.5 md:mb-3">
-              <span className="text-[10px] md:text-xs uppercase font-sans tracking-[0.28em] font-bold text-luxury-gold inline-block">
-                {slide.tag}
-              </span>
+            {/* Text Content Block */}
+            <div className="w-full md:w-7/12 lg:w-3/5 flex flex-col justify-center text-center md:text-left order-2 md:order-1 select-none shrink-0">
+              
+              {/* Top Tag */}
+              <div className="mb-1.5 md:mb-3">
+                <span className="text-[10px] md:text-xs uppercase font-sans tracking-[0.26em] font-bold text-luxury-gold inline-block">
+                  {slide.tag}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-luxury-dark font-semibold leading-[1.16] mb-2 sm:mb-2.5 md:mb-3.5 animate-slide-up">
+                {slide.title}
+              </h1>
+
+              {/* Detailed Subtitle / Description */}
+              <p className="text-xs sm:text-[13px] md:text-sm font-sans text-gray-600 max-w-xl mx-auto md:mx-0 leading-relaxed mb-4 sm:mb-5 md:mb-7 font-light line-clamp-3 md:line-clamp-none">
+                {slide.subtitle}
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-center md:justify-start gap-2.5 sm:gap-3.5 mb-3 sm:mb-4 md:mb-5">
+                <button
+                  onClick={() => handleCta('Females')}
+                  className="cursor-pointer group flex items-center gap-1.5 sm:gap-2 bg-luxury-dark text-white hover:bg-luxury-gold text-[11px] sm:text-xs font-sans uppercase tracking-widest font-bold py-2.5 px-4 sm:py-3 sm:px-6 md:py-3.5 md:px-7 rounded-sm shadow-md transition-all duration-300"
+                >
+                  Shop Females <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button
+                  onClick={() => handleCta('Kids')}
+                  className="cursor-pointer group flex items-center gap-1.5 sm:gap-2 bg-white text-luxury-dark hover:text-luxury-gold border border-luxury-dark hover:border-luxury-gold text-[11px] sm:text-xs font-sans uppercase tracking-widest font-bold py-2.5 px-4 sm:py-3 sm:px-6 md:py-3.5 md:px-7 rounded-sm transition-all duration-300 shadow-2xs"
+                >
+                  Shop Kids
+                </button>
+              </div>
+
+              {/* Trust Assurance Strip */}
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-4 text-[9.5px] sm:text-[10.5px] font-sans text-gray-500 font-light border-t border-[#E5DCD0]/60 pt-2.5 md:pt-3">
+                <span className="flex items-center gap-1 sm:gap-1.5">
+                  <Truck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-luxury-gold shrink-0" /> Free Nationwide Delivery above PKR 5,000
+                </span>
+                <span className="hidden sm:inline text-gray-300">•</span>
+                <span className="flex items-center gap-1 sm:gap-1.5">
+                  <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-luxury-gold shrink-0" /> 30-Day Doorstep Exchange
+                </span>
+              </div>
             </div>
 
-            {/* Title */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-luxury-dark font-semibold leading-[1.16] mb-3.5 md:mb-4 animate-slide-up">
-              {slide.title}
-            </h1>
-
-            {/* Detailed Subtitle / Description */}
-            <p className="text-xs sm:text-[13px] md:text-sm font-sans text-gray-600 max-w-xl leading-relaxed mb-6 md:mb-8 font-light">
-              {slide.subtitle}
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 mb-5">
-              <button
-                onClick={() => handleCta('Females')}
-                className="cursor-pointer group flex items-center gap-2 bg-luxury-dark text-white hover:bg-luxury-gold text-xs font-sans uppercase tracking-widest font-bold py-3.5 px-6 sm:px-7 rounded-sm shadow-md transition-all duration-300"
-              >
-                Shop Females <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button
-                onClick={() => handleCta('Kids')}
-                className="cursor-pointer group flex items-center gap-2 bg-white text-luxury-dark hover:text-luxury-gold border border-luxury-dark hover:border-luxury-gold text-xs font-sans uppercase tracking-widest font-bold py-3.5 px-6 sm:px-7 rounded-sm transition-all duration-300 shadow-2xs"
-              >
-                Shop Kids
-              </button>
+            {/* Asymmetrical Image Block: responsive height and proper aspect ratio */}
+            <div className="w-full md:w-5/12 lg:w-2/5 flex items-center justify-center order-1 md:order-2 shrink-0">
+              <div className="w-44 h-56 sm:w-52 sm:h-64 md:w-full md:max-w-105 lg:max-w-115 md:h-[84%] md:max-h-135 relative rounded-[26px_65px_32px_80px] md:rounded-[40px_180px_50px_220px] overflow-hidden border-2 border-white shadow-2xl bg-white/40 flex items-center justify-center group">
+                <img
+                  src={slide.image}
+                  alt={slide.title}
+                  className={`w-full h-full object-cover ${slide.imgPos || 'object-top'} transform scale-100 group-hover:scale-105 transition-transform duration-[4s] ease-out origin-top`}
+                  onError={(e) => {
+                    e.target.src = "https://placehold.co/600x600/f3eee5/1e1a17?text=SIRAJ+Collection";
+                  }}
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-40 pointer-events-none"></div>
+              </div>
             </div>
 
-            {/* Trust Assurance Strip */}
-            <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-[10.5px] font-sans text-gray-500 font-light border-t border-[#E5DCD0]/60 pt-3">
-              <span className="flex items-center gap-1.5">
-                <Truck className="w-3.5 h-3.5 text-luxury-gold" /> Free Nationwide Delivery above PKR 5,000
-              </span>
-              <span className="hidden sm:inline text-gray-300">•</span>
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-luxury-gold" /> 30-Day Doorstep Exchange
-              </span>
-            </div>
-          </div>
-
-          {/* Asymmetrical Image Block */}
-          <div className="w-full md:w-1/2 h-full relative overflow-hidden order-1 md:order-2 flex items-center justify-center p-4 sm:p-6 md:p-10 lg:p-12">
-            <div className="w-full max-w-115 h-[90%] max-h-145 relative rounded-[30px_100px_40px_120px] md:rounded-[40px_180px_50px_220px] overflow-hidden border-2 border-white shadow-2xl bg-white/40 flex items-center justify-center group">
-              <img
-                src={slide.image}
-                alt={slide.title}
-                className={`w-full h-full object-cover ${slide.imgPos || 'object-top'} transform scale-100 group-hover:scale-105 transition-transform duration-[4s] ease-out origin-top`}
-                onError={(e) => {
-                  e.target.src = "https://placehold.co/600x600/f3eee5/1e1a17?text=SIRAJ+Collection";
-                }}
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-40 pointer-events-none"></div>
-            </div>
           </div>
         </div>
       ))}
