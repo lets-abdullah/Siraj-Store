@@ -605,7 +605,7 @@ export default function App() {
                 Quick View Product
               </span>
 
-              <div className="grid grid-cols-2 gap-4 border-b border-[#F0EAE1] pb-6 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-b border-[#F0EAE1] pb-6 mb-6">
                 <img
                   src={quickViewProduct.images[0]}
                   alt={quickViewProduct.name}

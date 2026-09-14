@@ -552,15 +552,30 @@ export default function Header({
 
               {/* Nested Sizes Bracket */}
               <div className="mt-2">
-                <span className="text-[10px] uppercase font-sans tracking-widest text-gray-400 font-bold block mb-2.5">
-                  Shop By Sizes
+                <span className="text-[10px] uppercase font-sans tracking-widest text-gray-400 font-bold block mb-2">
+                  Women Sizes
                 </span>
-                <div className="flex flex-wrap gap-2">
-                  {["9-12M", "1-2Y", "3-4Y", "5-6Y", "7-8Y", "9-10Y", "11-12Y", "13-14Y", "15-16Y"].map((s, i) => (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {["XS", "S", "M", "L", "XL"].map((s, i) => (
                     <button
                       key={i}
                       onClick={() => handleSizeClick(s)}
                       className="text-xs font-sans px-2.5 py-1 bg-[#F9F5EC] border border-[#E5DCD0] rounded-sm hover:border-luxury-gold hover:text-luxury-gold transition-all text-[#3A2F2B]"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+
+                <span className="text-[10px] uppercase font-sans tracking-widest text-gray-400 font-bold block mb-2">
+                  Kids Age Sizes
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {["9-12M", "1-2Y", "3-4Y", "5-6Y", "7-8Y", "9-10Y", "11-12Y", "13-14Y", "15-16Y"].map((s, i) => (
+                    <button
+                      key={i}
+                      onClick={() => handleSizeClick(s)}
+                      className="text-[11px] font-sans px-2 py-1 bg-[#F9F5EC] border border-[#E5DCD0] rounded-sm hover:border-luxury-gold hover:text-luxury-gold transition-all text-[#3A2F2B]"
                     >
                       {s}
                     </button>

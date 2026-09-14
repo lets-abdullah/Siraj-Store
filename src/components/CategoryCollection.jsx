@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LayoutGrid, List, Heart, Eye, ShoppingBag, X, RotateCcw } from 'lucide-react';
+import { LayoutGrid, List, Heart, Eye, ShoppingBag, X, RotateCcw, SlidersHorizontal } from 'lucide-react';
 
 export default function CategoryCollection({
   productsList,
@@ -20,6 +20,7 @@ export default function CategoryCollection({
   currency
 }) {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'list'
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [qvQuantity, setQvQuantity] = useState(1);
   const [qvSelectedSize, setQvSelectedSize] = useState('');
@@ -153,8 +154,25 @@ export default function CategoryCollection({
       </div>
 
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+        {/* Mobile Filter Toggle Bar */}
+        <div className="lg:hidden w-full">
+          <button
+            onClick={() => setIsMobileFiltersOpen(prev => !prev)}
+            className="w-full py-3 px-4 bg-white border border-[#E5DCD0] rounded-sm flex items-center justify-between text-xs uppercase font-sans tracking-wider font-bold text-luxury-dark shadow-xs"
+            aria-label="Toggle Filters"
+          >
+            <span className="flex items-center gap-2">
+              <SlidersHorizontal className="w-4 h-4 text-luxury-gold" />
+              {isMobileFiltersOpen ? 'Hide Filters & Categories' : 'Filter Products & Categories'}
+            </span>
+            <span className="text-[10px] text-luxury-gold bg-luxury-cream border border-[#E5DCD0] px-2 py-0.5 rounded-full font-semibold">
+              {filteredProducts.length} items
+            </span>
+          </button>
+        </div>
+
         {/* 1. FILTER SIDEBAR */}
-        <aside className="w-full lg:w-64 shrink-0 flex flex-col gap-8 bg-luxury-cream lg:sticky lg:top-28 lg:max-h-[calc(100vh-140px)] overflow-y-auto pr-2">
+        <aside className={`w-full lg:w-64 shrink-0 flex-col gap-8 bg-luxury-cream lg:sticky lg:top-28 lg:max-h-[calc(100vh-140px)] overflow-y-auto pr-2 ${isMobileFiltersOpen ? 'flex' : 'hidden lg:flex'}`}>
           {/* Gender Filter (Dynamically tailored to category to guarantee strict separation) */}
           <div className="border-b border-[#F0EAE1] pb-6">
             <h3 className="font-serif text-sm text-luxury-dark font-bold mb-4 tracking-wide uppercase">
@@ -672,7 +690,7 @@ export default function CategoryCollection({
                 Quick View Product
               </span>
 
-              <div className="grid grid-cols-2 gap-4 border-b border-[#F0EAE1] pb-6 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-b border-[#F0EAE1] pb-6 mb-6">
                 <img
                   src={quickViewProduct.images[0]}
                   alt={quickViewProduct.name}
