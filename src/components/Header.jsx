@@ -174,8 +174,8 @@ export default function Header({
                 alt="Siraj Luxury Couture"
                 className="h-9 sm:h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
-              {/* Subtle integrated tagline on the same header line */}
-              <div className="hidden xl:flex flex-col border-l border-[#E2D8CC] pl-2.5 py-0.5 justify-center">
+              {/* Subtle integrated tagline on the same header line (only one instance) */}
+              <div className="hidden md:flex flex-col border-l border-[#E2D8CC] pl-2.5 py-0.5 justify-center">
                 <span className="text-[9px] font-sans tracking-[0.22em] text-luxury-gold font-bold uppercase whitespace-nowrap leading-tight">
                   LUXURY FASHION
                 </span>
@@ -184,11 +184,6 @@ export default function Header({
                 </span>
               </div>
             </div>
-
-            {/* Sub-tagline for wide monitors */}
-            <span className="hidden 2xl:inline-block text-[8.5px] font-sans tracking-[0.2em] text-luxury-gold font-medium uppercase border-l border-[#E2D8CC] pl-3">
-              LUXURY FASHION • FEMALES & KIDS
-            </span>
           </div>
 
           {/* CENTER-LEFT: Primary Navigation directly beside Logo */}
