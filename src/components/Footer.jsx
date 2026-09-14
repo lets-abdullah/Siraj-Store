@@ -1,11 +1,24 @@
 import { PhoneCall, Calendar } from 'lucide-react';
 
-export default function Footer({ onNavigate }) {
+export default function Footer({ onNavigate, activePage = 'home' }) {
   const currentYear = new Date().getFullYear();
 
   const handleLinkClick = (page) => {
     onNavigate(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleScrollToSection = (sectionId) => {
+    if (activePage !== 'home') {
+      onNavigate('home');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -14,16 +27,21 @@ export default function Footer({ onNavigate }) {
         
         {/* Column 1: Brand Backstory */}
         <div className="flex flex-col gap-4">
-          <img 
-            src="/logo.jpg" 
-            alt="SIRAJ Logo" 
-            className="h-12 object-contain self-start bg-white p-1 rounded-sm border border-gray-100" 
-            onError={(e) => {
-              e.target.src = "https://placehold.co/120x50/1e1a17/fdfbf7?text=SIRAJ";
-            }}
-          />
+          <div 
+            onClick={() => handleLinkClick('home')}
+            className="cursor-pointer group flex items-center gap-2 self-start"
+          >
+            <img 
+              src="/logo-transparent.png" 
+              alt="SIRAJ Logo" 
+              className="h-12 object-contain filter invert brightness-200" 
+              onError={(e) => {
+                e.target.src = "/logo.jpg";
+              }}
+            />
+          </div>
           <p className="text-[11.5px] font-sans leading-relaxed font-light text-gray-400">
-            SIRAJ is Pakistan's premier boutique luxury fashion brand for females and kids. Reimagining couture with organic linens, hand embroidery, and premium suits crafted to last.
+            SIRAJ is Pakistan's premier boutique luxury fashion house for females and kids. Reimagining couture with pure fabrics, bespoke craftsmanship, and timeless tailoring designed to last.
           </p>
           <span className="text-[10px] font-sans tracking-[0.2em] text-luxury-gold font-bold uppercase mt-1">
             SIRAJ LUXURY COUTURE
@@ -36,11 +54,24 @@ export default function Footer({ onNavigate }) {
             Boutique Services
           </h4>
           <div className="flex flex-col gap-2.5 text-xs font-sans text-gray-400">
-            <button onClick={() => handleLinkClick('home')} className="text-left hover:text-luxury-gold transition-colors">Home Page</button>
-            <button onClick={() => handleLinkClick('shop')} className="text-left hover:text-luxury-gold transition-colors">Premium Shop</button>
-            <button onClick={() => handleLinkClick('how-to-order')} className="text-left hover:text-luxury-gold transition-colors">How to Place Order</button>
-            <button onClick={() => handleLinkClick('reviews')} className="text-left hover:text-luxury-gold transition-colors">Verified Customer Reviews</button>
-            <button onClick={() => handleLinkClick('exchange-policy')} className="text-left hover:text-luxury-gold transition-colors">Exchange & Return Policy</button>
+            <button onClick={() => handleLinkClick('home')} className="text-left hover:text-luxury-gold transition-colors cursor-pointer">
+              Home Page
+            </button>
+            <button onClick={() => handleLinkClick('shop')} className="text-left hover:text-luxury-gold transition-colors cursor-pointer">
+              Shop Collections
+            </button>
+            <button onClick={() => handleScrollToSection('customer-reviews')} className="text-left hover:text-luxury-gold transition-colors cursor-pointer">
+              Customer Reviews
+            </button>
+            <button onClick={() => handleScrollToSection('faq-section')} className="text-left hover:text-luxury-gold transition-colors cursor-pointer">
+              Frequently Asked Questions (FAQ)
+            </button>
+            <button onClick={() => handleLinkClick('exchange-policy')} className="text-left hover:text-luxury-gold transition-colors cursor-pointer">
+              30-Day Exchange & Return Policy
+            </button>
+            <button onClick={() => handleLinkClick('how-to-order')} className="text-left hover:text-luxury-gold transition-colors cursor-pointer">
+              How to Place Order
+            </button>
           </div>
         </div>
 
@@ -58,7 +89,7 @@ export default function Footer({ onNavigate }) {
               <strong className="text-luxury-gold block">Friday Prayer Break:</strong>
               1:00 PM — 2:30 PM (Closed)
             </p>
-            <p className="text-[10px] text-gray-500">Sunday Closed</p>
+            <p className="text-[10px] text-gray-500">Sunday: Closed</p>
           </div>
         </div>
 
@@ -132,11 +163,15 @@ export default function Footer({ onNavigate }) {
 
       {/* Footer Bottom Bar */}
       <div className="max-w-6xl mx-auto px-6 md:px-8 pt-8 border-t border-[#322C28] flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-sans text-gray-500">
-        <span>© {currentYear} HAT Tech Media. All Rights Reserved.</span>
+        <span>© {currentYear} SIRAJ LUXURY COUTURE. All Rights Reserved.</span>
         <div className="flex gap-4.5">
-          <button onClick={() => handleLinkClick('exchange-policy')} className="hover:underline">Terms & Return</button>
+          <button onClick={() => handleLinkClick('exchange-policy')} className="hover:underline cursor-pointer">
+            Terms & Return
+          </button>
           <span>•</span>
-          <button onClick={() => handleLinkClick('how-to-order')} className="hover:underline">FAQ</button>
+          <button onClick={() => handleScrollToSection('faq-section')} className="hover:underline cursor-pointer">
+            FAQ
+          </button>
         </div>
       </div>
     </footer>

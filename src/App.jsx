@@ -8,12 +8,14 @@ import Checkout from './components/Checkout';
 import PolicyPages from './components/PolicyPages';
 import Footer from './components/Footer';
 import UserPanel from './components/UserPanel';
+import CustomerReviews from './components/CustomerReviews';
+import FaqSection from './components/FaqSection';
 import { products } from './data/products';
 import { Truck, RotateCcw, ShieldCheck, Headphones, Heart, Eye, Check } from 'lucide-react';
 
 export default function App() {
   // Global States
-  const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'shop' | 'pdp' | 'checkout' | 'reviews' | 'exchange-policy' | 'how-to-order'
+  const [currentPage, setCurrentPage] = useState('home'); // 'home' | 'shop' | 'pdp' | 'checkout' | 'exchange-policy' | 'how-to-order'
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
@@ -503,6 +505,12 @@ export default function App() {
                 )}
               </div>
             </section>
+
+            {/* CUSTOMER TESTIMONIALS / REVIEWS SECTION */}
+            <CustomerReviews />
+
+            {/* FREQUENTLY ASKED QUESTIONS (FAQ) ACCORDION */}
+            <FaqSection />
           </div>
         )}
 
@@ -564,7 +572,7 @@ export default function App() {
           />
         )}
 
-        {(currentPage === 'reviews' || currentPage === 'exchange-policy' || currentPage === 'how-to-order') && (
+        {(currentPage === 'exchange-policy' || currentPage === 'how-to-order') && (
           <PolicyPages
             view={currentPage}
             onNavigate={setCurrentPage}
@@ -587,7 +595,7 @@ export default function App() {
       />
 
       {/* GLOBAL FOOTER */}
-      <Footer onNavigate={setCurrentPage} />
+      <Footer onNavigate={setCurrentPage} activePage={currentPage} />
 
       {/* HOME PAGE QUICK VIEW DRAWER (Homepage scope specific overlay) */}
       {quickViewProduct && (

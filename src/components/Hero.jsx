@@ -153,7 +153,7 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
 
           {/* Asymmetrical Image block */}
           <div className="w-full md:w-1/2 h-[55%] md:h-full relative overflow-hidden order-1 md:order-2 flex items-center justify-center p-4 md:p-8 lg:p-12">
-            <div className="w-full max-w-[460px] h-[92%] max-h-[580px] relative rounded-[30px_100px_40px_120px] md:rounded-[40px_180px_50px_220px] overflow-hidden border-2 border-white shadow-2xl bg-white/40 flex items-center justify-center group">
+            <div className="w-full max-w-115 h-[92%] max-h-145 relative rounded-[30px_100px_40px_120px] md:rounded-[40px_180px_50px_220px] overflow-hidden border-2 border-white shadow-2xl bg-white/40 flex items-center justify-center group">
               <img
                 src={slide.image}
                 alt={slide.title}

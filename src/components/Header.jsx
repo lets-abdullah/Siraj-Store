@@ -80,6 +80,7 @@ export default function Header({
     }
     onNavigate('shop');
     setIsMobileMenuOpen(false);
+    setActiveMega(null);
   };
 
   const handleFemalesClick = (subCat = 'All') => {
@@ -119,23 +120,38 @@ export default function Header({
     setActiveMega(null);
   };
 
+  const handleScrollToHomeSection = (sectionId) => {
+    setIsMobileMenuOpen(false);
+    if (activePage !== 'home') {
+      onNavigate('home');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <header className="w-full relative z-40 bg-luxury-cream">
-      {/* 1. TOP BAR ANNOUNCEMENT MARQUEE */}
-      <div className="w-full bg-luxury-dark text-luxury-beige text-xs font-sans tracking-[0.15em] py-2.5 overflow-hidden flex items-center border-b border-[#322C28]">
+    <header className="w-full relative z-40">
+      {/* 1. TOP MARQUEE ANNOUNCEMENT BAR */}
+      <div className="w-full bg-luxury-dark text-luxury-beige text-xs font-sans tracking-[0.15em] py-2 overflow-hidden flex items-center border-b border-[#322C28]">
         <div className="flex-1 overflow-hidden relative h-4">
           <div className="animate-marquee inline-block whitespace-nowrap absolute">
-            <span>✨ SIRAJ LUXURY COUTURE • UP TO 40% OFF ON EASTERN WEAR & CLEARANCE • FREE SHIPPING ON ORDERS ABOVE PKR 5,000 • FEMALES & KIDS BOUTIQUE EXCELLENCE ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <span>✨ SIRAJ LUXURY COUTURE • UP TO 40% OFF ON EASTERN WEAR & CLEARANCE • FREE SHIPPING ON ORDERS ABOVE PKR 5,000 • FEMALES & KIDS BOUTIQUE EXCELLENCE ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>✨ SIRAJ LUXURY COUTURE • COMPLIMENTARY SHIPPING ON ORDERS ABOVE PKR 5,000 • 30-DAY DOORSTEP EXCHANGE • FEMALES & KIDS BOUTIQUE EXCELLENCE ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span>✨ SIRAJ LUXURY COUTURE • COMPLIMENTARY SHIPPING ON ORDERS ABOVE PKR 5,000 • 30-DAY DOORSTEP EXCHANGE • FEMALES & KIDS BOUTIQUE EXCELLENCE ✨ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </div>
         </div>
 
         {/* Currency Switcher */}
-        <div className="flex items-center gap-1.5 px-4 md:px-8 border-l border-[#322C28] text-[#E5DCD0]">
+        <div className="flex items-center gap-1 px-3 sm:px-6 border-l border-[#322C28] text-[#E5DCD0] shrink-0">
           <select
             value={currency}
             onChange={(e) => setCurrency(e.target.value)}
             className="bg-transparent border-none text-[11px] font-medium font-sans cursor-pointer focus:ring-0 focus:outline-none pr-1"
+            aria-label="Select currency"
           >
             <option value="PKR" className="text-gray-800">PKR (Rs.)</option>
             <option value="USD" className="text-gray-800">USD ($)</option>
@@ -143,227 +159,283 @@ export default function Header({
         </div>
       </div>
 
-      {/* 2. LOGO AREA (CENTERED) */}
-      <div className="w-full py-6 md:py-8 flex justify-center items-center relative border-b border-[#F0EAE1]">
-        {/* Mobile Menu Button - Left Aligned in Logo Area */}
-        <button
-          onClick={() => setIsMobileMenuOpen(true)}
-          className="absolute left-4 md:hidden p-2 text-[#3A2F2B] hover:text-luxury-gold transition-colors"
-          aria-label="Open Navigation Menu"
-        >
-          <Menu className="w-6 h-6" />
-        </button>
+      {/* 2. SINGLE HORIZONTAL HEADER ROW: [LOGO + TAGLINE] [NAV] [UTILITIES] */}
+      <div className="w-full bg-luxury-cream/95 backdrop-blur-md border-b border-[#EBE3D7]/80 sticky top-0 shadow-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+          
+          {/* LEFT SIDE: Brand Logo + Subtle Integrated Tagline */}
+          <div className="flex items-center gap-4 shrink-0">
+            <div
+              onClick={() => { onNavigate('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className="cursor-pointer group flex items-center gap-3"
+            >
+              <img
+                src="/logo-transparent.png"
+                alt="Siraj Luxury Couture"
+                className="h-11 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* Subtle integrated tagline on the same header line */}
+              <div className="hidden xl:flex flex-col border-l border-[#E2D8CC] pl-3 py-0.5 justify-center">
+                <span className="text-[9.5px] font-sans tracking-[0.25em] text-luxury-gold font-bold uppercase whitespace-nowrap leading-tight">
+                  LUXURY FASHION
+                </span>
+                <span className="text-[8px] font-sans tracking-[0.2em] text-[#6B5E55] font-medium uppercase whitespace-nowrap mt-0.5">
+                  FEMALES & KIDS
+                </span>
+              </div>
+            </div>
 
-        {/* Center Logo */}
-        <div
-          onClick={() => { onNavigate('home'); }}
-          className="cursor-pointer group flex flex-col items-center gap-1"
-        >
-          <img
-            src="/logo.jpg"
-            alt="SIRAJ Logo"
-            className="h-16 md:h-22 object-contain transition-transform duration-500 group-hover:scale-105"
-            onError={(e) => {
-              e.target.src = "https://placehold.co/180x80/fdfbf7/1e1a17?text=SIRAJ";
-            }}
-          />
-          <span className="text-[10px] uppercase font-sans tracking-[0.3em] text-luxury-gold font-semibold mt-1">
-            Luxury Fashion • Females & Kids
-          </span>
-        </div>
+            {/* Sub-tagline for wide monitors */}
+            <span className="hidden 2xl:inline-block text-[9px] font-sans tracking-[0.22em] text-luxury-gold font-medium uppercase border-l border-[#E2D8CC] pl-3">
+              LUXURY FASHION • FEMALES & KIDS
+            </span>
+          </div>
 
-        {/* Right utility panel (Static on desktop, hidden/condensed on mobile) */}
-        <div className="absolute right-4 md:right-8 flex items-center gap-1.5 md:gap-3 text-[#3A2F2B]">
-          <button
-            onClick={() => setIsSearchOpen(true)}
-            className="p-2 hover:text-luxury-gold hover:scale-105 transition-all duration-300"
-            aria-label="Search items"
-          >
-            <Search className="w-5 h-5 md:w-5.5 md:h-5.5" />
-          </button>
+          {/* CENTER-LEFT: Primary Navigation directly beside Logo */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <button
+              onClick={() => { onNavigate('home'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+              className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium transition-all duration-300 hover:text-luxury-gold py-1 ${
+                activePage === 'home'
+                  ? 'text-luxury-gold border-b border-luxury-gold'
+                  : 'text-[#3A2F2B]'
+              }`}
+            >
+              Home
+            </button>
 
-          <button
-            onClick={() => onNavigate('user-panel')}
-            className="hidden md:flex items-center gap-1 p-2 hover:text-luxury-gold transition-all duration-300"
-            title="My Account"
-          >
-            <User className="w-5 h-5" />
-          </button>
+            <button
+              onClick={() => handleCategoryClick('New Arrivals')}
+              className="cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium text-[#3A2F2B] hover:text-luxury-gold transition-colors py-1"
+            >
+              New Arrivals
+            </button>
 
-          <button
-            onClick={() => { onNavigate('shop'); onFilterCategory('Wishlist'); }}
-            className="p-2 hover:text-luxury-gold hover:scale-105 transition-all duration-300 relative"
-            aria-label="View Wishlist"
-          >
-            <Heart className="w-5 h-5 md:w-5.5 md:h-5.5" />
-            {wishlistCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-luxury-gold text-white text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-sans font-bold">
-                {wishlistCount}
-              </span>
-            )}
-          </button>
+            {/* FEMALES Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setActiveMega('females')}
+              onMouseLeave={() => setActiveMega(null)}
+            >
+              <button
+                onClick={() => handleFemalesClick('All')}
+                className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium hover:text-luxury-gold flex items-center gap-1 py-1 transition-colors ${
+                  activePage === 'shop' && selectedMainCategory === 'Females'
+                    ? 'text-luxury-gold border-b border-luxury-gold'
+                    : 'text-[#3A2F2B]'
+                }`}
+              >
+                Females <ChevronDown className="w-3.5 h-3.5" />
+              </button>
 
-          <button
-            onClick={onOpenCart}
-            className="p-2 hover:text-luxury-gold hover:scale-105 transition-all duration-300 relative group/cart"
-            aria-label="Open Shopping Cart"
-          >
-            <ShoppingBag className="w-5 h-5 md:w-5.5 md:h-5.5" />
-            {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-luxury-dark text-white text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-sans font-bold group-hover/cart:bg-luxury-gold transition-colors">
-                {cartCount}
-              </span>
-            )}
-          </button>
+              {activeMega === 'females' && (
+                <div className="absolute left-0 top-full w-64 pt-2 z-50 animate-fade-in">
+                  <div className="bg-luxury-cream border border-[#E5DCD0] shadow-2xl p-5 rounded-sm flex flex-col gap-3">
+                    <div className="text-[10px] uppercase tracking-[0.25em] text-luxury-gold font-bold border-b border-[#F0EAE1] pb-2">
+                      Females (Women)
+                    </div>
+                    <button
+                      onClick={() => handleFemalesClick('All')}
+                      className="cursor-pointer text-left text-xs uppercase tracking-wider font-semibold hover:text-luxury-gold text-luxury-dark transition-colors"
+                    >
+                      All Females
+                    </button>
+                    <button
+                      onClick={() => handleFemalesClick('Luxury Eastern Wear')}
+                      className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors"
+                    >
+                      Luxury Eastern Wear
+                    </button>
+                    <button
+                      onClick={() => handleFemalesClick('Summer Lawn & Pret')}
+                      className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors"
+                    >
+                      Summer Lawn & Pret
+                    </button>
+                    <button
+                      onClick={() => handleFemalesClick('Formal / Festive Suits')}
+                      className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors"
+                    >
+                      Formal / Festive Suits
+                    </button>
+                    <button
+                      onClick={() => handleFemalesClick('New Arrivals')}
+                      className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors"
+                    >
+                      New Arrivals
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* KIDS Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setActiveMega('kids')}
+              onMouseLeave={() => setActiveMega(null)}
+            >
+              <button
+                onClick={() => handleKidsClick('All')}
+                className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium hover:text-luxury-gold flex items-center gap-1 py-1 transition-colors ${
+                  activePage === 'shop' && selectedMainCategory === 'Kids'
+                    ? 'text-luxury-gold border-b border-luxury-gold'
+                    : 'text-[#3A2F2B]'
+                }`}
+              >
+                Kids <ChevronDown className="w-3.5 h-3.5" />
+              </button>
+
+              {activeMega === 'kids' && (
+                <div className="absolute left-0 top-full w-104 pt-2 z-50 animate-fade-in">
+                  <div className="bg-luxury-cream border border-[#E5DCD0] shadow-2xl p-6 rounded-sm grid grid-cols-2 gap-6">
+                    {/* Column 1: Kids Categories */}
+                    <div className="flex flex-col gap-2.5">
+                      <div className="text-[10px] uppercase tracking-[0.25em] text-luxury-gold font-bold border-b border-[#F0EAE1] pb-2 mb-1">
+                        Kids Categories
+                      </div>
+                      <button
+                        onClick={() => handleKidsClick('All')}
+                        className="cursor-pointer text-left text-xs uppercase tracking-wider font-semibold hover:text-luxury-gold text-luxury-dark transition-colors"
+                      >
+                        All Kids
+                      </button>
+                      <button
+                        onClick={() => handleKidsClick("Girls Suit (Summer '26)", 'Girls')}
+                        className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors"
+                      >
+                        Girls Suits & Frocks
+                      </button>
+                      <button
+                        onClick={() => handleKidsClick("Boys Suit (Summer '26)", 'Boys')}
+                        className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors"
+                      >
+                        Boys Suits
+                      </button>
+                      <button
+                        onClick={() => handleKidsClick('Eastern Wear', 'All')}
+                        className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors"
+                      >
+                        Kids Eastern Wear
+                      </button>
+                      <button
+                        onClick={() => handleKidsClick('New Arrivals', 'All')}
+                        className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors"
+                      >
+                        New Arrivals (Kids)
+                      </button>
+                    </div>
+
+                    {/* Column 2: Kids Sizing & Age Brackets */}
+                    <div className="flex flex-col gap-2 border-l border-[#F0EAE1] pl-5">
+                      <div className="text-[10px] uppercase tracking-[0.25em] text-luxury-gold font-bold border-b border-[#F0EAE1] pb-2 mb-1">
+                        Shop By Age Bracket
+                      </div>
+                      {sizes.map((grp, i) => (
+                        <div key={i} className="flex flex-col mb-1">
+                          <span className="text-[10px] font-sans font-bold tracking-wider text-luxury-dark">
+                            {grp.label}
+                          </span>
+                          <div className="flex gap-1.5 mt-0.5">
+                            {grp.values.map((s, idx) => (
+                              <button
+                                key={idx}
+                                onClick={() => { handleSizeClick(s); setActiveMega(null); }}
+                                className="cursor-pointer text-[10px] font-sans text-gray-500 hover:text-luxury-gold bg-white border border-[#E5DCD0] px-1.5 py-0.5 rounded-sm transition-colors"
+                              >
+                                {s}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={handleShopAllClick}
+              className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium transition-all duration-300 hover:text-luxury-gold py-1 ${
+                activePage === 'shop' && selectedMainCategory === 'All'
+                  ? 'text-luxury-gold border-b border-luxury-gold'
+                  : 'text-[#3A2F2B]'
+              }`}
+            >
+              Shop All
+            </button>
+          </nav>
+
+          {/* RIGHT SIDE: Search, Account, Wishlist, Cart & Mobile Toggle */}
+          <div className="flex items-center gap-2 sm:gap-3.5 text-[#3A2F2B]">
+            {/* Search */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 hover:text-luxury-gold hover:scale-105 transition-all duration-300 cursor-pointer"
+              aria-label="Search items"
+            >
+              <Search className="w-5 h-5" />
+            </button>
+
+            {/* Account */}
+            <button
+              onClick={() => onNavigate('user-panel')}
+              className="hidden md:flex items-center p-2 hover:text-luxury-gold transition-all duration-300 cursor-pointer"
+              title="My Account"
+              aria-label="My Account"
+            >
+              <User className="w-5 h-5" />
+            </button>
+
+            {/* Wishlist */}
+            <button
+              onClick={() => { onNavigate('shop'); onFilterCategory('Wishlist'); }}
+              className="p-2 hover:text-luxury-gold hover:scale-105 transition-all duration-300 relative cursor-pointer"
+              aria-label="View Wishlist"
+            >
+              <Heart className="w-5 h-5" />
+              {wishlistCount > 0 && (
+                <span className="absolute 0 right-0 bg-luxury-gold text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-sans font-bold shadow-xs">
+                  {wishlistCount}
+                </span>
+              )}
+            </button>
+
+            {/* Cart Bag */}
+            <button
+              onClick={onOpenCart}
+              className="p-2 hover:text-luxury-gold hover:scale-105 transition-all duration-300 relative group/cart cursor-pointer"
+              aria-label="Open Shopping Cart"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute 0 right-0 bg-luxury-dark text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-sans font-bold group-hover/cart:bg-luxury-gold transition-colors shadow-xs">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Menu Toggle Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden p-2 text-[#3A2F2B] hover:text-luxury-gold transition-colors cursor-pointer"
+              aria-label="Open Navigation Menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+
         </div>
       </div>
 
-      {/* 3. STICKY MAIN NAVIGATION BAR: HOME | NEW ARRIVALS | FEMALES | KIDS | REVIEWS | SHOP ALL */}
-      <nav className="hidden md:block w-full sticky top-0 bg-luxury-cream/95 backdrop-blur-md border-b border-[#EBE3D7]/70 shadow-sm z-30 transition-all duration-300">
-        <div className="max-w-6xl mx-auto flex justify-center items-center gap-8 py-4">
-          <button
-            onClick={() => onNavigate('home')}
-            className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium transition-all duration-300 hover:text-luxury-gold ${activePage === 'home' ? 'text-luxury-gold border-b border-luxury-gold' : 'text-[#3A2F2B]'}`}
-          >
-            Home
-          </button>
-
-          <button
-            onClick={() => handleCategoryClick('New Arrivals')}
-            className="cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium text-[#3A2F2B] hover:text-luxury-gold transition-colors"
-          >
-            New Arrivals
-          </button>
-
-          {/* 1. FEMALES Mega / Dropdown (Adult Women only) */}
-          <div
-            className="relative"
-            onMouseEnter={() => setActiveMega('females')}
-            onMouseLeave={() => setActiveMega(null)}
-          >
-            <button
-              onClick={() => handleFemalesClick('All')}
-              className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium hover:text-luxury-gold flex items-center gap-1 py-1 transition-colors ${activePage === 'shop' && selectedMainCategory === 'Females' ? 'text-luxury-gold border-b border-luxury-gold' : 'text-[#3A2F2B]'}`}
-            >
-              Females <ChevronDown className="w-3.5 h-3.5" />
-            </button>
-
-            {activeMega === 'females' && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-full w-64 pt-2 z-50 animate-fade-in">
-                <div className="bg-luxury-cream border border-[#E5DCD0] shadow-2xl p-5 rounded-sm flex flex-col gap-3">
-                  <div className="text-[10px] uppercase tracking-[0.25em] text-luxury-gold font-bold border-b border-[#F0EAE1] pb-2">
-                    Females (Women)
-                  </div>
-                  <button onClick={() => handleFemalesClick('All')} className="cursor-pointer text-left text-xs uppercase tracking-wider font-semibold hover:text-luxury-gold text-luxury-dark transition-colors">
-                    All Females
-                  </button>
-                  <button onClick={() => handleFemalesClick('Luxury Eastern Wear')} className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors">
-                    Luxury Eastern Wear
-                  </button>
-                  <button onClick={() => handleFemalesClick('Summer Lawn & Pret')} className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors">
-                    Summer Lawn & Pret
-                  </button>
-                  <button onClick={() => handleFemalesClick('Formal / Festive Suits')} className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors">
-                    Formal / Festive Suits
-                  </button>
-                  <button onClick={() => handleFemalesClick('New Arrivals')} className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors">
-                    New Arrivals
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* 2. KIDS Mega / Dropdown */}
-          <div
-            className="relative"
-            onMouseEnter={() => setActiveMega('kids')}
-            onMouseLeave={() => setActiveMega(null)}
-          >
-            <button
-              onClick={() => handleKidsClick('All')}
-              className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium hover:text-luxury-gold flex items-center gap-1 py-1 transition-colors ${activePage === 'shop' && selectedMainCategory === 'Kids' ? 'text-luxury-gold border-b border-luxury-gold' : 'text-[#3A2F2B]'}`}
-            >
-              Kids <ChevronDown className="w-3.5 h-3.5" />
-            </button>
-
-            {activeMega === 'kids' && (
-              <div className="absolute left-1/2 -translate-x-1/2 top-full w-110 pt-2 z-50 animate-fade-in">
-                <div className="bg-luxury-cream border border-[#E5DCD0] shadow-2xl p-6 rounded-sm grid grid-cols-2 gap-6">
-                  {/* Column 1: Kids Categories */}
-                  <div className="flex flex-col gap-2.5">
-                    <div className="text-[10px] uppercase tracking-[0.25em] text-luxury-gold font-bold border-b border-[#F0EAE1] pb-2 mb-1">
-                      Kids Categories
-                    </div>
-                    <button onClick={() => handleKidsClick('All')} className="cursor-pointer text-left text-xs uppercase tracking-wider font-semibold hover:text-luxury-gold text-luxury-dark transition-colors">
-                      All Kids
-                    </button>
-                    <button onClick={() => handleKidsClick("Girls Suit (Summer '26)", 'Girls')} className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors">
-                      Girls Suits & Frocks
-                    </button>
-                    <button onClick={() => handleKidsClick("Boys Suit (Summer '26)", 'Boys')} className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors">
-                      Boys Suits
-                    </button>
-                    <button onClick={() => handleKidsClick('Eastern Wear', 'All')} className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors">
-                      Kids Eastern Wear
-                    </button>
-                    <button onClick={() => handleKidsClick('New Arrivals', 'All')} className="cursor-pointer text-left text-xs uppercase tracking-wider hover:text-luxury-gold text-[#3A2F2B] transition-colors">
-                      New Arrivals (Kids)
-                    </button>
-                  </div>
-
-                  {/* Column 2: Kids Sizing & Age Brackets */}
-                  <div className="flex flex-col gap-2 border-l border-[#F0EAE1] pl-5">
-                    <div className="text-[10px] uppercase tracking-[0.25em] text-luxury-gold font-bold border-b border-[#F0EAE1] pb-2 mb-1">
-                      Shop By Age Bracket
-                    </div>
-                    {sizes.map((grp, i) => (
-                      <div key={i} className="flex flex-col mb-1">
-                        <span className="text-[10px] font-sans font-bold tracking-wider text-luxury-dark">
-                          {grp.label}
-                        </span>
-                        <div className="flex gap-1.5 mt-0.5">
-                          {grp.values.map((s, idx) => (
-                            <button
-                              key={idx}
-                              onClick={() => { handleSizeClick(s); setActiveMega(null); }}
-                              className="cursor-pointer text-[10px] font-sans text-gray-500 hover:text-luxury-gold bg-white border border-[#E5DCD0] px-1.5 py-0.5 rounded-sm transition-colors"
-                            >
-                              {s}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <button
-            onClick={() => onNavigate('reviews')}
-            className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium transition-all duration-300 hover:text-luxury-gold ${activePage === 'reviews' ? 'text-luxury-gold border-b border-luxury-gold' : 'text-[#3A2F2B]'}`}
-          >
-            Reviews
-          </button>
-
-          <button
-            onClick={handleShopAllClick}
-            className={`cursor-pointer text-xs uppercase font-sans tracking-[0.2em] font-medium transition-all duration-300 hover:text-luxury-gold ${activePage === 'shop' && selectedMainCategory === 'All' ? 'text-luxury-gold border-b border-luxury-gold' : 'text-[#3A2F2B]'}`}
-          >
-            Shop All
-          </button>
-        </div>
-      </nav>
-
-      {/* 4. PREDICTIVE SEARCH OVERLAY */}
+      {/* 3. PREDICTIVE SEARCH OVERLAY */}
       {isSearchOpen && (
         <div className="fixed inset-0 bg-luxury-dark/70 backdrop-blur-md z-50 flex flex-col items-center justify-start pt-24 px-4 md:px-0">
           <div className="w-full max-w-2xl bg-luxury-cream rounded-md shadow-2xl p-6 relative border border-[#E5DCD0] animate-slide-up">
             <button
               onClick={() => { setIsSearchOpen(false); setSearchQuery(''); }}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 cursor-pointer"
               aria-label="Close search overlay"
             >
               <X className="w-6 h-6" />
@@ -423,7 +495,7 @@ export default function Header({
                       <button
                         key={i}
                         onClick={() => setSearchQuery(tag)}
-                        className="text-xs font-sans px-3 py-1.5 bg-[#F9F5EC] border border-[#E5DCD0] rounded-full hover:border-luxury-gold hover:text-luxury-gold transition-all text-gray-600"
+                        className="text-xs font-sans px-3 py-1.5 bg-[#F9F5EC] border border-[#E5DCD0] rounded-full hover:border-luxury-gold hover:text-luxury-gold transition-all text-gray-600 cursor-pointer"
                       >
                         {tag}
                       </button>
@@ -436,41 +508,44 @@ export default function Header({
         </div>
       )}
 
-      {/* 5. MOBILE DRAWER NAVIGATION MENU */}
+      {/* 4. MOBILE DRAWER NAVIGATION MENU */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-luxury-dark/60 backdrop-blur-sm md:hidden flex justify-start">
+        <div className="fixed inset-0 z-50 bg-luxury-dark/60 backdrop-blur-sm lg:hidden flex justify-start">
           <div className="w-4/5 max-w-xs bg-luxury-cream h-full shadow-2xl p-6 relative flex flex-col justify-between overflow-y-auto animate-fade-in">
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-800"
+              className="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-800 cursor-pointer"
               aria-label="Close Mobile Menu"
             >
               <X className="w-6 h-6" />
             </button>
 
-            <div className="mt-8 flex flex-col gap-6">
+            <div className="mt-6 flex flex-col gap-6">
               {/* Brand Logo in Drawer */}
-              <div className="flex flex-col items-start border-b border-[#F0EAE1] pb-4 mb-2">
-                <img src="/logo.jpg" alt="SIRAJ" className="h-12 object-contain" />
-                <span className="text-[9px] uppercase tracking-widest text-luxury-gold font-semibold mt-1">Luxury Fashion • Females & Kids</span>
+              <div className="flex flex-col items-start border-b border-[#F0EAE1] pb-4 mb-1">
+                <img src="/logo-transparent.png" alt="SIRAJ" className="h-10 object-contain" />
+                <span className="text-[9px] uppercase tracking-widest text-luxury-gold font-semibold mt-1">
+                  LUXURY FASHION • FEMALES & KIDS
+                </span>
               </div>
 
               {/* Main links */}
               <div className="flex flex-col gap-3 font-sans text-sm font-semibold tracking-wider text-[#3A2F2B]">
                 <button
-                  onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); }}
-                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2"
+                  onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2 cursor-pointer"
                 >
                   Home
                 </button>
+                
                 <button
                   onClick={() => handleCategoryClick('New Arrivals')}
-                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2"
+                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2 cursor-pointer"
                 >
                   New Arrivals
                 </button>
 
-                {/* Females Accordion (Adult Women only) */}
+                {/* Females Accordion */}
                 <div className="border-b border-[#F0EAE1]/30 pb-2">
                   <div
                     onClick={() => setIsMobileFemalesOpen(!isMobileFemalesOpen)}
@@ -481,49 +556,49 @@ export default function Header({
                   </div>
                   {isMobileFemalesOpen && (
                     <div className="flex flex-col gap-2 pl-3 pt-2 pb-1 text-xs font-normal text-gray-600 animate-fade-in">
-                      <button onClick={() => handleFemalesClick('All')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleFemalesClick('All')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • All Females
                       </button>
-                      <button onClick={() => handleFemalesClick('Luxury Eastern Wear')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleFemalesClick('Luxury Eastern Wear')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • Luxury Eastern Wear
                       </button>
-                      <button onClick={() => handleFemalesClick('Summer Lawn & Pret')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleFemalesClick('Summer Lawn & Pret')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • Summer Lawn & Pret
                       </button>
-                      <button onClick={() => handleFemalesClick('Formal / Festive Suits')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleFemalesClick('Formal / Festive Suits')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • Formal / Festive Suits
                       </button>
-                      <button onClick={() => handleFemalesClick('New Arrivals')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleFemalesClick('New Arrivals')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • New Arrivals
                       </button>
                     </div>
                   )}
                 </div>
 
-                {/* Kids Accordion (Children only) */}
+                {/* Kids Accordion */}
                 <div className="border-b border-[#F0EAE1]/30 pb-2">
                   <div
                     onClick={() => setIsMobileKidsOpen(!isMobileKidsOpen)}
                     className="flex items-center justify-between py-1 cursor-pointer hover:text-luxury-gold transition-colors"
                   >
-                    <span>Kids (Children Only)</span>
+                    <span>Kids (Children)</span>
                     <ChevronDown className={`w-4 h-4 transition-transform ${isMobileKidsOpen ? 'rotate-180 text-luxury-gold' : ''}`} />
                   </div>
                   {isMobileKidsOpen && (
                     <div className="flex flex-col gap-2 pl-3 pt-2 pb-1 text-xs font-normal text-gray-600 animate-fade-in">
-                      <button onClick={() => handleKidsClick('All')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleKidsClick('All')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • All Kids
                       </button>
-                      <button onClick={() => handleKidsClick("Girls Suit (Summer '26)", 'Girls')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleKidsClick("Girls Suit (Summer '26)", 'Girls')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • Girls Suits & Frocks
                       </button>
-                      <button onClick={() => handleKidsClick("Boys Suit (Summer '26)", 'Boys')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleKidsClick("Boys Suit (Summer '26)", 'Boys')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • Boys Suits
                       </button>
-                      <button onClick={() => handleKidsClick('Eastern Wear', 'All')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleKidsClick('Eastern Wear', 'All')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • Kids Eastern Wear
                       </button>
-                      <button onClick={() => handleKidsClick('New Arrivals', 'All')} className="text-left hover:text-luxury-gold py-0.5">
+                      <button onClick={() => handleKidsClick('New Arrivals', 'All')} className="text-left hover:text-luxury-gold py-0.5 cursor-pointer">
                         • New Arrivals (Kids)
                       </button>
                     </div>
@@ -531,27 +606,36 @@ export default function Header({
                 </div>
 
                 <button
-                  onClick={() => { onNavigate('reviews'); setIsMobileMenuOpen(false); }}
-                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2"
-                >
-                  Reviews
-                </button>
-                <button
-                  onClick={() => { onNavigate('user-panel'); setIsMobileMenuOpen(false); }}
-                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2"
-                >
-                  My Account
-                </button>
-                <button
                   onClick={handleShopAllClick}
-                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2"
+                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2 cursor-pointer"
                 >
                   Shop All
+                </button>
+
+                <button
+                  onClick={() => handleScrollToHomeSection('customer-reviews')}
+                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2 cursor-pointer"
+                >
+                  Customer Reviews
+                </button>
+
+                <button
+                  onClick={() => handleScrollToHomeSection('faq-section')}
+                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2 cursor-pointer"
+                >
+                  Frequently Asked Questions
+                </button>
+
+                <button
+                  onClick={() => { onNavigate('user-panel'); setIsMobileMenuOpen(false); }}
+                  className="text-left py-1 hover:text-luxury-gold transition-colors border-b border-[#F0EAE1]/30 pb-2 cursor-pointer"
+                >
+                  My Account
                 </button>
               </div>
 
               {/* Nested Sizes Bracket */}
-              <div className="mt-2">
+              <div className="mt-1">
                 <span className="text-[10px] uppercase font-sans tracking-widest text-gray-400 font-bold block mb-2">
                   Women Sizes
                 </span>
@@ -560,7 +644,7 @@ export default function Header({
                     <button
                       key={i}
                       onClick={() => handleSizeClick(s)}
-                      className="text-xs font-sans px-2.5 py-1 bg-[#F9F5EC] border border-[#E5DCD0] rounded-sm hover:border-luxury-gold hover:text-luxury-gold transition-all text-[#3A2F2B]"
+                      className="text-xs font-sans px-2.5 py-1 bg-[#F9F5EC] border border-[#E5DCD0] rounded-sm hover:border-luxury-gold hover:text-luxury-gold transition-all text-[#3A2F2B] cursor-pointer"
                     >
                       {s}
                     </button>
@@ -575,7 +659,7 @@ export default function Header({
                     <button
                       key={i}
                       onClick={() => handleSizeClick(s)}
-                      className="text-[11px] font-sans px-2 py-1 bg-[#F9F5EC] border border-[#E5DCD0] rounded-sm hover:border-luxury-gold hover:text-luxury-gold transition-all text-[#3A2F2B]"
+                      className="text-[11px] font-sans px-2 py-1 bg-[#F9F5EC] border border-[#E5DCD0] rounded-sm hover:border-luxury-gold hover:text-luxury-gold transition-all text-[#3A2F2B] cursor-pointer"
                     >
                       {s}
                     </button>
@@ -585,15 +669,9 @@ export default function Header({
             </div>
 
             {/* Footer block in Mobile Drawer */}
-            <div className="mt-12 border-t border-[#F0EAE1] pt-6 flex flex-col gap-3">
-              <button
-                onClick={() => { onNavigate('reviews'); setIsMobileMenuOpen(false); }}
-                className="text-left text-xs text-[#3A2F2B] hover:text-luxury-gold flex items-center gap-1.5"
-              >
-                <User className="w-4 h-4" /> Customer Reviews Wall
-              </button>
-              <div className="text-[11px] font-sans text-gray-400">
-                Hotline: +92 300 6545678
+            <div className="mt-8 border-t border-[#F0EAE1] pt-4 flex flex-col gap-2">
+              <div className="text-[11px] font-sans text-gray-500">
+                Concierge Hotline: <a href="tel:+923006545678" className="text-luxury-dark font-medium">+92 300 6545678</a>
               </div>
             </div>
           </div>
