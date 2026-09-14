@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Star, CheckCircle, HelpCircle, ArrowRight, ShieldCheck, Mail, ShoppingBag } from 'lucide-react';
+import { Star, CheckCircle, HelpCircle, ShieldCheck, Mail, ShoppingBag } from 'lucide-react';
 
 export default function PolicyPages({ view, onNavigate }) {
   // 1. REVIEWS WALL STATE

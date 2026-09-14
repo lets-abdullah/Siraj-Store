@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { Search, Heart, ShoppingBag, User, ChevronDown, Menu, X, ArrowRight } from 'lucide-react';
+import { useState, useRef, useEffect, useMemo } from 'react';
+import { Search, Heart, ShoppingBag, User, ChevronDown, Menu, X } from 'lucide-react';
 import { products } from '../data/products';
 
 export default function Header({
@@ -22,39 +22,34 @@ export default function Header({
   const [isMobileKidsOpen, setIsMobileKidsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [predictiveResults, setPredictiveResults] = useState([]);
   const [activeMega, setActiveMega] = useState(null);
   const searchInputRef = useRef(null);
 
   // Predictive search logic with strict separation
-  useEffect(() => {
-    if (searchQuery.trim().length > 1) {
-      const q = searchQuery.toLowerCase().trim();
-      const filtered = products.filter(p => {
-        if (q === 'females' || q === 'female' || q === 'women' || q === 'woman') {
-          return p.department === 'Females' || p.gender === 'Women';
-        }
-        if (q === 'kids' || q === 'kid' || q === 'children' || q === 'child') {
-          return p.department === 'Kids' || p.gender === 'Girls' || p.gender === 'Boys';
-        }
-        if (q === 'girls' || q === 'girl') {
-          return p.department === 'Kids' && p.gender === 'Girls';
-        }
-        if (q === 'boys' || q === 'boy') {
-          return p.department === 'Kids' && p.gender === 'Boys';
-        }
+  const predictiveResults = useMemo(() => {
+    if (searchQuery.trim().length <= 1) return [];
+    const q = searchQuery.toLowerCase().trim();
+    return products.filter(p => {
+      if (q === 'females' || q === 'female' || q === 'women' || q === 'woman') {
+        return p.department === 'Females' || p.gender === 'Women';
+      }
+      if (q === 'kids' || q === 'kid' || q === 'children' || q === 'child') {
+        return p.department === 'Kids' || p.gender === 'Girls' || p.gender === 'Boys';
+      }
+      if (q === 'girls' || q === 'girl') {
+        return p.department === 'Kids' && p.gender === 'Girls';
+      }
+      if (q === 'boys' || q === 'boy') {
+        return p.department === 'Kids' && p.gender === 'Boys';
+      }
 
-        return (
-          p.name.toLowerCase().includes(q) ||
-          p.category.toLowerCase().includes(q) ||
-          p.gender.toLowerCase().includes(q) ||
-          (p.department && p.department.toLowerCase().includes(q))
-        );
-      }).slice(0, 6);
-      setPredictiveResults(filtered);
-    } else {
-      setPredictiveResults([]);
-    }
+      return (
+        p.name.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q) ||
+        p.gender.toLowerCase().includes(q) ||
+        (p.department && p.department.toLowerCase().includes(q))
+      );
+    }).slice(0, 6);
   }, [searchQuery]);
 
   // Focus search input when overlay opens

@@ -9,7 +9,7 @@ import PolicyPages from './components/PolicyPages';
 import Footer from './components/Footer';
 import UserPanel from './components/UserPanel';
 import { products } from './data/products';
-import { Truck, RotateCcw, ShieldCheck, Headphones, Heart, Eye, ArrowRight, Check } from 'lucide-react';
+import { Truck, RotateCcw, ShieldCheck, Headphones, Heart, Eye, Check } from 'lucide-react';
 
 export default function App() {
   // Global States
@@ -28,7 +28,7 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedGender, setSelectedGender] = useState('All');
   const [selectedSize, setSelectedSize] = useState('All');
-  const [priceRange, setPriceRange] = useState(8000);
+  const [priceRange, setPriceRange] = useState(35000);
 
   // Quick View State for Homepage
   const [quickViewProduct, setQuickViewProduct] = useState(null);
@@ -316,7 +316,7 @@ export default function App() {
                           <img
                             src={product.images[0]}
                             alt={product.name}
-                            className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[0.9s] ease-out"
+                            className="w-full h-full object-cover object-top origin-top transform scale-100 group-hover:scale-105 transition-transform duration-[0.9s] ease-out"
                             onError={(e) => {
                               e.target.src = "https://placehold.co/400x500/f3eee5/1e1a17?text=Clearance+Item";
                             }}
@@ -393,7 +393,7 @@ export default function App() {
                           <img
                             src={product.images[0]}
                             alt={product.name}
-                            className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[0.8s] ease-out"
+                            className="w-full h-full object-cover object-top origin-top transform scale-100 group-hover:scale-105 transition-transform duration-[0.8s] ease-out"
                             onError={(e) => {
                               e.target.src = "https://placehold.co/300x400/f3eee5/1e1a17?text=Best+Seller";
                             }}

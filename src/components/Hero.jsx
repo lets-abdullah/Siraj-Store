@@ -13,7 +13,8 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
       ctaGirls: "Shop Females",
       ctaBoys: "Shop Kids",
       bgColor: "bg-[#F7ECE4]",
-      textColor: "text-[#3E2E25]"
+      textColor: "text-[#3E2E25]",
+      imgPos: "object-top"
     },
     {
       image: "/women_lawn_1.png",
@@ -23,7 +24,8 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
       ctaGirls: "Shop Females",
       ctaBoys: "Shop Kids",
       bgColor: "bg-[#FDF6F0]",
-      textColor: "text-[#3B2C24]"
+      textColor: "text-[#3B2C24]",
+      imgPos: "object-top"
     },
     {
       image: "/girls_eastern_1.png",
@@ -33,7 +35,8 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
       ctaGirls: "Shop Females",
       ctaBoys: "Shop Kids",
       bgColor: "bg-[#F7ECE4]",
-      textColor: "text-[#3E2E25]"
+      textColor: "text-[#3E2E25]",
+      imgPos: "object-center"
     },
     {
       image: "/boys_suit_1.png",
@@ -43,7 +46,8 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
       ctaGirls: "Shop Females",
       ctaBoys: "Shop Kids",
       bgColor: "bg-[#E6ECE7]",
-      textColor: "text-[#273B29]"
+      textColor: "text-[#273B29]",
+      imgPos: "object-top"
     },
     {
       image: "/girls_western_1.png",
@@ -53,7 +57,8 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
       ctaGirls: "Shop Females",
       ctaBoys: "Shop Kids",
       bgColor: "bg-[#ECE6EB]",
-      textColor: "text-[#422C3A]"
+      textColor: "text-[#422C3A]",
+      imgPos: "object-center"
     },
     {
       image: "/boys_eastern_1.png",
@@ -63,17 +68,19 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
       ctaGirls: "Shop Females",
       ctaBoys: "Shop Kids",
       bgColor: "bg-[#E2EFE5]",
-      textColor: "text-[#1C3B24]"
+      textColor: "text-[#1C3B24]",
+      imgPos: "object-top"
     },
     {
-      image: "/girls_eastern_1.png",
+      image: "/products/girls_eastern_rosewood.jpg",
       title: "Eid Festive Ghararas (Kids)",
       subtitle: "Intricately detailed raw silk ghararas and premium gold embroidered kurtas tailored for special family festivities.",
       tag: "KIDS FESTIVE SPECIALS",
       ctaGirls: "Shop Females",
       ctaBoys: "Shop Kids",
       bgColor: "bg-[#F5EFE0]",
-      textColor: "text-[#473B1B]"
+      textColor: "text-[#473B1B]",
+      imgPos: "object-top"
     }
   ];
 
@@ -145,17 +152,17 @@ export default function Hero({ onNavigate, onFilterGender, onFilterCategory, onF
           </div>
 
           {/* Asymmetrical Image block */}
-          <div className="w-full md:w-1/2 h-[55%] md:h-full relative overflow-hidden order-1 md:order-2 flex items-center justify-center p-4 md:p-12">
-            <div className="w-full h-full relative rounded-[30px_100px_40px_120px] md:rounded-[40px_180px_50px_220px] overflow-hidden border-2 border-white shadow-2xl bg-white/40 flex items-center justify-center group">
+          <div className="w-full md:w-1/2 h-[55%] md:h-full relative overflow-hidden order-1 md:order-2 flex items-center justify-center p-4 md:p-8 lg:p-12">
+            <div className="w-full max-w-[460px] h-[92%] max-h-[580px] relative rounded-[30px_100px_40px_120px] md:rounded-[40px_180px_50px_220px] overflow-hidden border-2 border-white shadow-2xl bg-white/40 flex items-center justify-center group">
               <img
                 src={slide.image}
                 alt={slide.title}
-                className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[4s] ease-out"
+                className={`w-full h-full object-cover ${slide.imgPos || 'object-top'} transform scale-100 group-hover:scale-105 transition-transform duration-[4s] ease-out origin-top`}
                 onError={(e) => {
                   e.target.src = "https://placehold.co/600x600/f3eee5/1e1a17?text=SIRAJ+Collection";
                 }}
               />
-              <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-60"></div>
+              <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-40 pointer-events-none"></div>
             </div>
           </div>
         </div>

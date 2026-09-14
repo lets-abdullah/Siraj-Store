@@ -123,9 +123,6 @@ export default function UserPanel({
   const handleProfileSave = (e) => {
     e.preventDefault();
     setIsEditingProfile(false);
-    // updates current user details locally in memory
-    currentUser.name = profileForm.name;
-    currentUser.phone = profileForm.phone;
   };
 
   // 1. LOGGED IN DASHBOARD

@@ -90,7 +90,7 @@ export default function CartDrawer({
               </button>
             </div>
           ) : (
-            cartItems.map((item, idx) => (
+            cartItems.map((item) => (
               <div key={`${item.id}-${item.selectedSize}`} className="py-4.5 flex gap-4 text-left">
                 <img 
                   src={item.image} 

@@ -30,7 +30,7 @@ export default function CategoryCollection({
     setSelectedCategory('All');
     setSelectedGender('All');
     setSelectedSize('All');
-    setPriceRange(8000);
+    setPriceRange(35000);
   };
 
   const sizesList = ["9-12M", "1-2Y", "3-4Y", "5-6Y", "7-8Y", "9-10Y", "11-12Y", "13-14Y", "15-16Y"];
@@ -319,7 +319,7 @@ export default function CategoryCollection({
             <input
               type="range"
               min="2000"
-              max="25000"
+              max="35000"
               step="500"
               value={priceRange}
               onChange={(e) => setPriceRange(Number(e.target.value))}
@@ -327,7 +327,7 @@ export default function CategoryCollection({
             />
             <div className="flex justify-between items-center text-[10px] text-gray-400 mt-2 font-sans">
               <span>Min: Rs. 2,000</span>
-              <span>Max: Rs. 25,000</span>
+              <span>Max: Rs. 35,000</span>
             </div>
           </div>
 
@@ -534,7 +534,7 @@ export default function CategoryCollection({
                       <img
                         src={product.images[0]}
                         alt={product.name}
-                        className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-[0.8s] ease-out"
+                        className="w-full h-full object-cover object-top origin-top transform scale-100 group-hover:scale-105 transition-transform duration-[0.8s] ease-out"
                         onError={(e) => {
                           e.target.src = "https://placehold.co/400x500/f3eee5/1e1a17?text=SIRAJ";
                         }}
